@@ -1,151 +1,146 @@
-# Real-Time AI Surveillance & Safety System
+# Real-Time Vision Monitoring System
 
-A full-stack computer-vision project for real-time object detection, tracking, people counting, restricted-zone alerts, crowd alerts, event logging, and a live React dashboard.
+A Python-based computer vision application designed to analyze live video streams, detect objects, and track their movement in real time. The system combines deep learning with video-processing tools to provide an extensible foundation for intelligent monitoring applications.
 
-## Features
+## 🚀 Features
 
-- YOLO real-time object detection
-- Persistent object tracking with ByteTrack
-- People and vehicle counting
-- Configurable restricted zone
-- Crowd threshold alert
-- Event history
-- Live MJPEG camera stream
-- WebSocket live statistics
-- React dashboard
-- SQLite event storage by default
-- Optional MongoDB support
-- REST API
-- Windows start scripts
+* Real-time object detection from webcam or video streams
+* Object tracking with persistent IDs
+* Live bounding-box and confidence-score visualization
+* Video and image input support
+* Configurable detection thresholds
+* Real-time FPS monitoring
+* Modular Python architecture
+* REST API support for integrating vision capabilities with other applications
 
-## Tech Stack
+## 🛠️ Technology Stack
 
-- Python 3.10+
-- FastAPI
-- Ultralytics YOLO
-- OpenCV
-- WebSockets
-- React + Vite
-- SQLite / optional MongoDB
-- Recharts
+* **Python**
+* **PyTorch**
+* **YOLO**
+* **OpenCV**
+* **FastAPI**
+* **NumPy**
 
-## Project Structure
+## 📁 Project Structure
 
 ```text
-AI-Surveillance-Safety-System/
-├── backend/
-│   ├── app/
-│   │   ├── __init__.py
-│   │   ├── main.py
-│   │   ├── config.py
-│   │   ├── state.py
-│   │   ├── database.py
-│   │   ├── detector.py
-│   │   ├── camera.py
-│   │   └── schemas.py
-│   ├── requirements.txt
-│   └── .env.example
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── App.jsx
-│   │   ├── api.js
-│   │   ├── main.jsx
-│   │   └── styles.css
-│   ├── package.json
-│   └── vite.config.js
-├── run_backend.bat
-├── run_frontend.bat
-├── .gitignore
+vision-monitoring/
+│
+├── models/              # Detection and tracking models
+├── src/
+│   ├── detection/      # Object detection logic
+│   ├── tracking/       # Object tracking
+│   ├── api/            # REST API endpoints
+│   └── utils/          # Helper functions
+│
+├── tests/               # Automated tests
+├── requirements.txt     # Python dependencies
+├── config.yaml          # Application configuration
 └── README.md
 ```
 
-## 1. Backend setup
+## ⚙️ Installation
 
-Open PowerShell in the project directory:
+Clone the repository:
 
-```powershell
-cd backend
+```bash
+git clone https://github.com/your-username/vision-monitoring.git
+cd vision-monitoring
+```
+
+Create a virtual environment:
+
+```bash
 python -m venv venv
-.\venv\Scripts\activate
+```
+
+Activate it:
+
+**Windows**
+
+```bash
+venv\Scripts\activate
+```
+
+**Linux/macOS**
+
+```bash
+source venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
 pip install -r requirements.txt
 ```
 
-Copy `.env.example` to `.env` if you want custom settings.
+## ▶️ Running the Application
 
-Start the backend:
+Run the vision pipeline:
 
-```powershell
-uvicorn app.main:app --reload
+```bash
+python main.py
 ```
 
-The API will be available at:
+For webcam input, configure the camera source in the application configuration.
+
+For a video file:
+
+```bash
+python main.py --source videos/sample.mp4
+```
+
+Start the REST API:
+
+```bash
+uvicorn src.api.main:app --reload
+```
+
+The API can then be used to connect the vision engine with external applications.
+
+## 🔍 How It Works
 
 ```text
-http://127.0.0.1:8000
+Camera / Video
+      │
+      ▼
+  OpenCV Input
+      │
+      ▼
+ Object Detection
+      │
+      ▼
+ Object Tracking
+      │
+      ▼
+ Video Analytics
+      │
+      ├── Detection Results
+      ├── Object IDs
+      ├── Confidence Scores
+      └── FPS Metrics
+      │
+      ▼
+Visualization / REST API
 ```
 
-API docs:
+## 📊 Possible Applications
 
-```text
-http://127.0.0.1:8000/docs
-```
+The system can serve as a foundation for:
 
-On first model use, Ultralytics downloads the configured YOLO model automatically.
+* CCTV monitoring
+* Traffic analysis
+* People and vehicle counting
+* Restricted-area monitoring
+* Industrial safety monitoring
+* Smart-camera applications
+* Retail analytics
+* Robotics and autonomous systems
 
-## 2. Frontend setup
+## 🔮 Future Improvements
 
-Open a second PowerShell:
-
-```powershell
-cd frontend
-npm install
-npm run dev
-```
-
-Open the URL printed by Vite, normally:
-
-```text
-http://localhost:5173
-```
-
-## 3. Camera
-
-The backend defaults to webcam index `0`.
-
-Change `CAMERA_INDEX` in `.env` if you have another camera.
-
-You can also set:
-
-```env
-VIDEO_SOURCE=path/to/video.mp4
-```
-
-for a prerecorded video.
-
-## 4. MongoDB (optional)
-
-The project works out of the box with SQLite. To use MongoDB, set:
-
-```env
-DATABASE_MODE=mongodb
-MONGO_URI=mongodb://localhost:27017
-MONGO_DB=ai_surveillance
-```
-
-## 5. Important notes
-
-This is a portfolio/educational project. It is not a certified security system.
-
-For commercial deployment, review the current Ultralytics licensing terms. The project uses Ultralytics YOLO for inference/tracking.
-
-## Suggested next upgrades
-
-- User authentication and roles
-- Multiple camera streams
-- Email/Telegram alerts
-- Snapshot storage
-- Abandoned-object detection
-- Heatmaps
-- Docker deployment
-- Cloud deployment
+* Multi-camera support
+* Event-based notifications
+* Database integration for detection history
+* Web-based m
